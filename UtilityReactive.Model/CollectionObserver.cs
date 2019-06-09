@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UtilityReactive
+namespace UtilityReactive.Model
 {
 
 
@@ -14,6 +14,8 @@ namespace UtilityReactive
             {
                 this.collection = collection;
             }
+
+
 
             public virtual void OnCompleted()
             {
@@ -32,6 +34,32 @@ namespace UtilityReactive
         }
 
 
+    public abstract class CollectionObserver<T,R> : IObserver<T>
+    {
+        private ICollection<R> collection;
 
-    
+        public CollectionObserver(ICollection<R> collection)
+        {
+            this.collection = collection;
+        }
+
+        protected abstract R Convert(T t);
+
+        public virtual void OnCompleted()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void OnError(Exception error)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void OnNext(T value)
+        {
+            collection.Add(Convert(value));
+        }
+    }
+
+
 }

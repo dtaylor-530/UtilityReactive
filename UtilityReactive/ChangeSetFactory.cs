@@ -8,8 +8,7 @@ using System.Reactive.Linq;
 using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
-using UtilityInterface;
-using UtilityInterface.NonGeneric;
+
 
 namespace UtilityReactive
 {
@@ -17,7 +16,7 @@ namespace UtilityReactive
     {
 
 
-            public static IObservable<IChangeSet<T, R>> Build<T,R>(Func<T, R> getkey, IObservable<T> adds, IObservable<T> removals, IObservable<object> ClearedSubject = null, IObservable<IFilter> filter= null)
+            public static IObservable<IChangeSet<T, R>> Build<T,R>(Func<T, R> getkey, IObservable<T> adds, IObservable<T> removals, IObservable<object> ClearedSubject = null, IObservable<Predicate<T>> filter= null)
             {
                 //ViewModel.InteractiveCollectionViewModel<T, object> interactivecollection = null;
                 System.Reactive.Subjects.ISubject<Exception> exs = new System.Reactive.Subjects.Subject<Exception>();
@@ -61,7 +60,7 @@ namespace UtilityReactive
                 }, getkey);
 
                 if (filter != null)
-                    return changeset.Filter(filter.Select(_ => { Func<T, bool> f = aa => _.Filter(aa); return f; }).StartWith(ft));
+                    return changeset.Filter(filter.Select(_ => { Func<T, bool> f = aa => _(aa); return f; }).StartWith(ft));
                 else
                     return changeset;
 

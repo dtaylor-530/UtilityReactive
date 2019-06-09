@@ -11,7 +11,7 @@ namespace UtilityReactive
     public static class CollectionChanged
     {
 
-        public static IObservable<NotifyCollectionChangedEventArgs> GetChanges<T>(this ObservableCollection<T> collection)
+        public static IObservable<NotifyCollectionChangedEventArgs> GetChanges(this INotifyCollectionChanged collection)
         {
             return Observable
                    .FromEvent<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(
@@ -22,15 +22,15 @@ namespace UtilityReactive
 
         public static IObservable<T> GetAdditions<T>(this ObservableCollection<T> collection)
         {
-            return GetChanges(collection, NotifyCollectionChangedAction.Add);
+            return GetChanges<T>(collection, NotifyCollectionChangedAction.Add);
         }
 
-        public static IObservable<T> GetSubtractions<T>(this ObservableCollection<T> collection,NotifyCollectionChangedAction action)
+        public static IObservable<T> GetSubtractions<T>(this INotifyCollectionChanged collection,NotifyCollectionChangedAction action)
         {
-            return GetChanges(collection, NotifyCollectionChangedAction.Remove);
+            return GetChanges<T>(collection, NotifyCollectionChangedAction.Remove);
         }
 
-        public static IObservable<T> GetChanges<T>(this ObservableCollection<T> collection, NotifyCollectionChangedAction action)
+        public static IObservable<T> GetChanges<T>(this INotifyCollectionChanged collection, NotifyCollectionChangedAction action)
         {
             return GetChanges(collection)
                 .Where(_ => _.Action == action)

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reactive.Disposables;
 using System.Text;
 
-namespace UtilityReactive
+namespace UtilityReactive.Model
 {
 
     public class CollectionSubject<T> : CollectionObserver<T>, IObservable<T>

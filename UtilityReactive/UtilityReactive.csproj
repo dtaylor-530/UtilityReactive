@@ -1,17 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Declan Taylor</Authors>
-    <Version>1.1.0</Version>
+    <Version>1.1.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="DynamicData" Version="6.5.0.2474" />
     <PackageReference Include="Range" Version="1.1.0" />
     <PackageReference Include="System.Reactive" Version="4.1.0" />
-    <PackageReference Include="UtilityInterface" Version="2.0.1-alpha" />
   </ItemGroup>
 
 </Project>
