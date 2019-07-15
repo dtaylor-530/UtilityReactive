@@ -6,35 +6,39 @@ namespace UtilityReactive.Model
 {
 
 
-        public class CollectionObserver<T> : IObserver<T>
+    public class CollectionObserver<T> : IObserver<T>
+    {
+        private ICollection<T> collection;
+
+        public CollectionObserver(ICollection<T> collection)
         {
-            private ICollection<T> collection;
-
-            public CollectionObserver(ICollection<T> collection)
-            {
-                this.collection = collection;
-            }
-
-
-
-            public virtual void OnCompleted()
-            {
-                throw new NotImplementedException();
-            }
-
-            public virtual void OnError(Exception error)
-            {
-                throw new NotImplementedException();
-            }
-
-            public virtual void OnNext(T value)
-            {
-                collection.Add(value);
-            }
+            this.collection = collection;
         }
 
 
-    public abstract class CollectionObserver<T,R> : IObserver<T>
+
+        public virtual void OnCompleted()
+        {
+            Console.WriteLine("Completed");
+            // throw new NotImplementedException();
+        }
+
+        public virtual void OnError(Exception error)
+        {
+            Console.WriteLine(error.Message);
+        }
+
+        public virtual void OnNext(T value)
+        {
+            Action(() => collection.Add(value));
+        }
+
+
+        protected virtual void Action(Action action) => action();
+    }
+
+
+    public abstract class CollectionObserver<T, R> : IObserver<T>
     {
         private ICollection<R> collection;
 
@@ -47,18 +51,23 @@ namespace UtilityReactive.Model
 
         public virtual void OnCompleted()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Completed");
+            // throw new NotImplementedException();
         }
 
         public virtual void OnError(Exception error)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(error.Message);
         }
 
-        public virtual void OnNext(T value)
+        public void OnNext(T value)
         {
-            collection.Add(Convert(value));
+            Action(() => collection.Add(Convert(value)));
         }
+
+
+        protected virtual void Action(Action action) => action();
+
     }
 
 
