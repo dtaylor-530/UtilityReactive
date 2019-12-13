@@ -110,11 +110,12 @@ namespace UtilityReactive
 
         }
 
-        public static IObservable<IObservable<KeyValuePair<int, T>>> RangeToRandomObservable<T>(this IObservable<Savage.Range<int>> output, Func<int, T> func, int size=10) 
+
+        public static IObservable<IObservable<KeyValuePair<int, T>>> RangeToRandomObservable<T>(this IObservable<Savage.Range.Range<int>> output, Func<int, T> func, int size=10) 
         {
             Random r = new Random();
             var obs = Observable.Create<IObservable<KeyValuePair<int, T>>>(observer =>
-              output.Where(a => !a.Equals(default(Savage.Range<int>))).Subscribe(_ =>
+              output.Where(a => !a.Equals(default(Savage.Range.Range<int>))).Subscribe(_ =>
               {
                   var diff = _.Ceiling - _.Floor;
 

@@ -25,7 +25,6 @@ namespace UtilityReactive
             };
 
             return Build(fca, ts, scheduler, x);
-
         }
 
         public static IObservable<T> ToObservable<T>(this IEnumerable<T> enumerable, TimeSpan minTimeSpan, TimeSpan maxTimeSpan, IScheduler scheduler = null, Random random = null)

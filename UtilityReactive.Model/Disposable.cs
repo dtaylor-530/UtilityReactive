@@ -4,19 +4,12 @@ using System.Threading;
 
 namespace UtilityReactive.Model
 {
-
     // Licensed to the .NET Foundation under one or more agreements.
-
     // The .NET Foundation licenses this file to you under the Apache 2.0 License.
-
     // See the LICENSE file in the project root for more information. 
 
-
-
     internal enum TrySetSingleResult
-
     {
-
         Success,
 
         AlreadyAssigned,
@@ -34,13 +27,10 @@ namespace UtilityReactive.Model
     /// </summary>
 
     public static class Disposable
-
     {
 
         /// <summary>
-
         /// Represents a disposable that does nothing on disposal.
-
         /// </summary>
 
         private sealed class EmptyDisposable : IDisposable
@@ -48,17 +38,11 @@ namespace UtilityReactive.Model
         {
 
             /// <summary>
-
             /// Singleton default disposable.
-
             /// </summary>
-
             public static readonly EmptyDisposable Instance = new EmptyDisposable();
 
-
-
             private EmptyDisposable()
-
             {
 
             }
@@ -74,9 +58,7 @@ namespace UtilityReactive.Model
             public void Dispose()
 
             {
-
                 // no op
-
             }
 
         }
