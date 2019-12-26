@@ -25,23 +25,30 @@ namespace UtilityReactive.DemoApp
         public MainWindow()
         {
             InitializeComponent();
-            var dtn = DateTime.Now.AddDays(1);
-            var xx = Range(0, 10).Select((a) => dtn.AddMinutes(a)).ToArray(); ;
+            var dtnPlus = DateTime.Now.AddDays(1);
+            var xx = Range(0, 10).Select((a) => dtnPlus.AddMinutes(a)).ToArray(); ;
             ListView1.ItemsSource = xx;
+            DateTime dtn = DateTime.Now;
+            var arr = UtilityReactive.TimeHelper.ChangeRate(xx, 6).AdjustAllByFirstTo(DateTime.Now.AddSeconds(3)).ToArray();
 
-            var new1 = UtilityReactive.TimeHelper.ChangeRate(xx, 60).AdjustAllByFirstTo(DateTime.Now).ToArray();
-            ListView2.ItemsSource = new1.Select(t=>t.ToLongTimeString());
+            var items = arr.Select(a => new CountDown(a, TimeSpan.FromMilliseconds(100))).ToArray(); ;
 
-            UtilityReactive.TimeHelper.ChangeRate(xx, 60).AdjustAllByFirstTo(DateTime.Now).ByTimeStamp()
+            ListView1.SelectedIndex = 0;
 
-                .Subscribe(a =>
+            foreach (var xlx in items)
             {
-                this.Dispatcher.Invoke(() =>
+                xlx.OnAnyPropertyChange().Subscribe(a =>
                 {
-                    ListView1.SelectedIndex = ListView1.SelectedIndex + 1;
-                    ListView2.SelectedIndex = ListView2.SelectedIndex + 1;
+                    if (a.TimeRemaining == default(TimeSpan))
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            ListView1.SelectedIndex = items.Select((a, i) => (i, a.TimeRemaining)).Where(a=>a.TimeRemaining>default(TimeSpan)).OrderBy(a => a.TimeRemaining).DefaultIfEmpty().FirstOrDefault().i;
+                        });
                 });
-            });
+            }
+            ListView1.ItemsSource = items;
+
+    
         }
     }
 }

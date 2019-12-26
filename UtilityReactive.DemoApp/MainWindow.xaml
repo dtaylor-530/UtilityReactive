@@ -6,8 +6,25 @@
         xmlns:local="clr-namespace:UtilityReactive.DemoApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <UniformGrid Rows="1">
-        <ListView x:Name="ListView1" Width="300" Height="600"></ListView>
-        <ListView x:Name="ListView2"  Width="300" Height="600"></ListView>
-    </UniformGrid>
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top">
+            <Label Content="CountDown"></Label>
+            <TextBox Name="CountDown1" Width="100" IsReadOnly="True" Text="{Binding ElementName=ListView1, Path=SelectedItem.TimeRemaining}"></TextBox>
+        </ToolBar>
+
+        <UniformGrid Rows="1">
+            <ListView x:Name="ListView1"  Height="600">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="DateTime" Width="120" DisplayMemberBinding="{Binding DateTime}" />
+                        <GridViewColumn Header="Rate (ms)" Width="100" DisplayMemberBinding="{Binding Rate, StringFormat=fff}" />
+                        <GridViewColumn Header="TimeRemaining (s)" Width="120" DisplayMemberBinding="{Binding TimeRemaining, StringFormat=ss}" />
+                        <GridViewColumn Header="TimeRemaining (ms)" Width="120" DisplayMemberBinding="{Binding TimeRemaining, StringFormat=fff}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+      
+        </UniformGrid>
+
+    </DockPanel>
 </Window>

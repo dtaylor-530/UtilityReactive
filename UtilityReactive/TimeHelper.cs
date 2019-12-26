@@ -158,6 +158,65 @@ namespace UtilityReactive
             }
         }
 
+
+        /// <summary>
+        ///  Adjusts all dates so that the the first date starts at <see cref="startDateTime"></see> 
+        ///  whilst the difference between dates  is preserved.
+        /// </summary>
+        /// <param name="scheduledTimes"></param>
+        /// <param name="startDateTime"></param>
+        /// <returns></returns>
+        public static IEnumerable<KeyValuePair<DateTime, DateTime>> SelectCountDowns(this IEnumerable<DateTime> scheduledTimes, TimeSpan timeSpan)
+        {
+
+            using (var enmr = scheduledTimes.GetEnumerator())
+            {
+                enmr.MoveNext();
+                var current = enmr.Current;
+
+                while (enmr.MoveNext())
+                {
+                    var diff = enmr.Current - current;
+
+                    double totalSize = diff.Ticks;
+
+                    int i = 0;
+                    while (totalSize > 0)
+                    {
+                        yield return new KeyValuePair<DateTime, DateTime>(enmr.Current - TimeSpan.FromTicks((long)totalSize), enmr.Current);
+                        totalSize -= timeSpan.Ticks;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        ///  Adjusts all dates so that the the first date starts at <see cref="startDateTime"></see> 
+        ///  whilst the difference between dates  is preserved.
+        /// </summary>
+        /// <param name="scheduledTimes"></param>
+        /// <param name="startDateTime"></param>
+        /// <returns></returns>
+        public static IObservable<KeyValuePair<TimeSpan, DateTime>> SelectCountDowns(this IObservable<DateTime> scheduledTimes, TimeSpan timeSpan)
+        {
+
+            return scheduledTimes.Select(a =>
+             {
+                 var dtn = DateTime.Now;
+                 int sum = (int)((dtn - a).Ticks / timeSpan.Ticks);
+                 var obs = Observable
+                 .Interval(timeSpan)
+                 .Take(sum)
+                 .Select(itvl =>
+                 {
+                     return new KeyValuePair<TimeSpan, DateTime>(DateTime.Now - a, a);
+                 });
+
+                 return sum > 0 ? obs : obs.Prepend(new KeyValuePair<TimeSpan, DateTime>(DateTime.Now - a, a));
+
+             }).Switch();
+        }
+
         /// <summary>
         ///  Adjusts all numbers so that the the first number starts at <see cref="start"></see> 
         ///  whilst the difference between numbers is preserved.
