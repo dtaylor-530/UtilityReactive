@@ -57,7 +57,7 @@ namespace UtilityReactive
 
 
         /// <summary>
-        /// https://stackoverflow.com/questions/7597773/does-reactive-extensions-support-rolling-buffers?noredirect=1
+        /// <a href="https://stackoverflow.com/questions/7597773/does-reactive-extensions-support-rolling-buffers?noredirect=1"></a>
         /// answered Sep 30 '11 at 0:32
         /// Enigmativity
         /// </summary>

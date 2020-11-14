@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityReactive", "UtilityR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityReactive.Model", "UtilityReactive.Model\UtilityReactive.Model.csproj", "{D6524C6E-D121-40DA-823A-48DEA111F22A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityReactive.DemoApp", "UtilityReactive.DemoApp\UtilityReactive.DemoApp.csproj", "{855476F3-67EC-4370-9499-390F1416F895}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityReactive.DemoApp", "UtilityReactive.DemoApp\UtilityReactive.DemoApp.csproj", "{855476F3-67EC-4370-9499-390F1416F895}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{AE50432E-065D-4465-BA84-E619F11D5340}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +32,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{855476F3-67EC-4370-9499-390F1416F895} = {AE50432E-065D-4465-BA84-E619F11D5340}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D946308-0CCD-4561-8B02-9FE8C7942B82}

@@ -100,17 +100,6 @@ namespace UtilityReactive
 
         }
 
-        public static IObservable<T> ToBufferedObservable<T>(Action<NotifyCollectionChangedEventHandler> handlerplus, Action<NotifyCollectionChangedEventHandler> handlerminus, int buffermilliseconds)
-        {
-            return Observable
-              .FromEventPattern<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(handlerplus, handlerminus)
-              .SelectMany(x => x.EventArgs.NewItems.Cast<T>())
-              .Where(a => a != null)
-              .BufferUntilInactive(TimeSpan.FromMilliseconds(buffermilliseconds));
-
-        }
-
-
         public static IObservable<IObservable<KeyValuePair<int, T>>> RangeToRandomObservable<T>(this IObservable<Savage.Range.Range<int>> output, Func<int, T> func, int size=10) 
         {
             Random r = new Random();
